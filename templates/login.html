@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="loginform">
+        <form action="/login/" method="post">
+            <div>
+                <div>
+                    <input id="" name="user_id" type="text">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input id="" name="password" type="password">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input name="" type="submit" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                    <input name="" type="reset" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                    <a href="/register/">
+                        &nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;
+                    </a>
+
+                </div>
+            </div>
+            <div>
+                <div>
+                    {{message}}
+                </div>
+            </div>
+            {% csrf_token %}
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorite</title>
+</head>
+<body>
+    <ul>
+        <li class="">
+          <a href="/movies_form/">首页</a>
+        </li>
+        <li class="">
+          <a href="/user_setting/">{{ user_name }}</a>
+        </li>
+        <li class="">
+          <a href="/logout/">退出</a>
+        </li>
+    </ul>
+    {% load static %}
+    {% for movie in movies %}
+        {% for fav in user_fav %}
+            {% if fav.url_object_id == movie.url_object_id %}
+                <li>
+                <div class="item">
+                    <div class="pic">
+                        <em class="">{{ movie.top }}</em>
+                        <a href="{{ movie.url }}">
+                            <img width="100" alt="{{movie.title}}" src="{% static 'image/' %}{{ movie.image_path }}" class="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <div class="hd">
+                            <a href="{{ movie.url }}" class="">
+                                <span class="title">{{ movie.title }}</span>
+                            </a>
+                            <span class="playable">{{ movie.play_able }}</span>
+                        </div>
+                        <div class="bd">
+                            <p class="">
+                                {{ movie.director }}&nbsp;&nbsp;&nbsp;{{ movie.actor }}<br> {{ movie.year }}&nbsp;/&nbsp;{{ movie.country }}&nbsp;/&nbsp;{{ movie.movie_type }}
+                            </p>
+                            <div class="star">
+                                <form action="/user_favorite/" method="post">
+                                    {% csrf_token %}
+                                    <span></span>
+                                    <span>豆瓣评分:{{ movie.star }}&nbsp;&nbsp;&nbsp;</span>
+                                    <span>{{ movie.comments_num }}</span>
+                                    <input type="hidden" name="fav" value ="{{ movie.url_object_id }}"/>
+                                    <button type="submit">
+                                        取消收藏
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

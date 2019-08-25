@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>movies</title>
+</head>
+
+<body>
+    <ul>
+        <li class="">
+          <a href="/user_setting/">{{ user_name }}</a>
+        </li>
+        <li class="">
+          <a href="/user_favorite/">我的收藏</a>
+        </li>
+        <li class="">
+          <a href="/logout/">退出</a>
+        </li>
+    </ul>
+    {% load static %}
+    {% for movie in movies %}
+        <li>
+            <div class="item">
+                <div class="pic">
+                    <em class="">{{ movie.top }}</em>
+                    <a href="{{ movie.url }}">
+                        <img width="100" alt="{{movie.title}}" src="{% static 'image/' %}{{ movie.image_path }}" class="">
+                    </a>
+                </div>
+                <div class="info">
+                    <div class="hd">
+                        <a href="{{ movie.url }}" class="">
+                            <span class="title">{{ movie.title }}</span>
+                        </a>
+                        <span class="playable">{{ movie.play_able }}</span>
+                    </div>
+                    <div class="bd">
+                        <p class="">
+                            {{ movie.director }}&nbsp;&nbsp;&nbsp;{{ movie.actor }}<br> {{ movie.year }}&nbsp;/&nbsp;{{ movie.country }}&nbsp;/&nbsp;{{ movie.movie_type }}
+                        </p>
+                        <div class="star">
+                            <form action="/movies_form/" method="post">
+                                {% csrf_token %}
+                                <span></span>
+                                <span>豆瓣评分:{{ movie.star }}&nbsp;&nbsp;&nbsp;</span>
+                                <span>{{ movie.comments_num }}</span>
+                                <input type="hidden" name="movie_id" value ="{{ movie.url_object_id }}"/>
+                                <button type="submit">
+                                    {% for movie_id in user_fav %}
+                                        {% if movie_id.url_object_id == movie.url_object_id %}
+                                    取消收藏
+                                            {{ "<!--" }}
+                                        {% endif %}
+                                    {% endfor %}
+                                    收藏
+                                    {{ "-->" }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if movies.has_previous %}
+                <li>
+                <a href="?page={{ movies.previous_page_number }}"
+                aria-label="Next"><span aria-label="true">上一页</span></a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                <a href=""
+                aria-label="Next"><span aria-label="true">上一页</span></a>
+                </li>
+            {% endif %}
+            {% for page in page_range %}
+                <li><a href="?page={{ page }}">{{ page }}</a></li>
+            {% endfor %}
+            {% if movies.has_next %}
+                <li>
+                <a href="?page={{ movies.next_page_number }}"
+                aria-label="Next"><span aria-label="true">下一页</span></a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                <a href=""
+                aria-label="Next"><span aria-label="true">下一页</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="registerform">
+        <form action="/register/" method="post">
+            <div>
+                <div>
+                    <input id="" name="user_id" type="text" placeholder="账户">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input id="" name="password" type="password" placeholder="密码">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input id="" name="repassword" type="password" placeholder="确认密码">
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input name="" type="submit" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+                    <input name="" type="reset" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                    <a href="/login/">
+                        &nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;
+                    </a>
+
+                </div>
+            </div>
+            <div>
+                <div>
+                    {{message}}
+                </div>
+            </div>
+            {% csrf_token %}
+        </form>
+    </div>
+</body>
+
+</html>
